@@ -1,3 +1,30 @@
 page-home {
 
 }
+
+ion-input {
+    border-bottom: solid 1px map-get($colors, secondary);
+}
+
+ion-footer {
+    position: fixed;
+}
+
+ion-content {
+    height: 87.5%;
+}
+
+u {
+    text-decoration-style: dashed;
+}
+
+.bot {
+    width: 90%;
+} 
+
+.user {
+    width: 90%;
+    margin-left: 10%;
+    background-color: map-get($colors, primary);
+    color:#fff;
+}
