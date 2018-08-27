@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, AlertController, Content } from 'ionic-angular';
 import { HTTP } from "@ionic-native/http";
-import { text } from '@angular/core/src/render3/instructions';
+
+import { BotProvider } from "../../providers/bot/bot";
+
+import { DictionaryPage } from "../dictionary/dictionary";
 
 @Component({
   selector: 'page-home',
@@ -10,48 +13,47 @@ import { text } from '@angular/core/src/render3/instructions';
 
 export class HomePage {
 
+  @ViewChild(Content) content: Content;
+
   public todos = [];
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public http: HTTP) {
-
+  constructor(
+    private botProvider: BotProvider, 
+    public navCtrl: NavController, 
+    public alertCtrl: AlertController, 
+    public http: HTTP
+  ) {
+    this.todos = this.botProvider.getMessages();
   }
 
   sendMessage(message) {
-
-    this.todos.push(message);
-
-
-   /* this.http.get('http://ionic.io', {}, {})
-      .then(data => {
-
-        console.log(data.status);
-        console.log(data.data); // data received by server
-        console.log(data.headers);
-
-      })
-      .catch(error => {
-
-        console.log(error.status);
-        console.log(error.error); // error message as string
-        console.log(error.headers);
-
-      }); */
+    this.botProvider.sendMessages(message, 'user');
+    this.content.scrollToBottom();
   }
 
-  definition(word) {
+  definition(word, meaning) {
     let title = word;
+    let definition = meaning;
 
     let definitionAlert = this.alertCtrl.create({
       title: title,
-      message: "sample definition",
+      message: definition,
       buttons: [
+        {
+          text: "Read More"
+        },
         { 
           text: "Got It!"
-        }
+        },
+    
       ]
     });
 
     definitionAlert.present();
+  }
+
+  gotoDictionary() {
+    this.navCtrl.push(DictionaryPage);
   }
 
 }
