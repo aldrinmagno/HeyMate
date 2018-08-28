@@ -22,4 +22,8 @@ export class DictionaryPage {
     console.log('ionViewDidLoad DictionaryPage');
   }
 
+  getItems() {
+
+  }
+
 }

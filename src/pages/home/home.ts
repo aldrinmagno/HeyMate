@@ -24,6 +24,8 @@ export class HomePage {
     public http: HTTP
   ) {
     this.todos = this.botProvider.getMessages();
+
+    this.botProvider.sendMessages('<u ion-text color="primary">asdasdasd</u> asdasdsa', 'bot');
   }
 
   sendMessage(message) {
