@@ -9,7 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
-import { DictionaryPage } from "../pages/dictionary/dictionary"
+import { DictionaryPage } from "../pages/dictionary/dictionary";
+import { DefinitionPage } from "../pages/definition/definition";
+import { LoginPage } from "../pages/login/login";
 
 import { BotProvider } from '../providers/bot/bot';
 import { DictionaryProvider } from '../providers/dictionary/dictionary';
@@ -20,7 +22,9 @@ import { DictionaryProvider } from '../providers/dictionary/dictionary';
   declarations: [
     MyApp,
     HomePage,
-    DictionaryPage
+    DictionaryPage,
+    DefinitionPage,
+    LoginPage
   ],
   imports: [
     HttpClientModule,
@@ -31,7 +35,9 @@ import { DictionaryProvider } from '../providers/dictionary/dictionary';
   entryComponents: [
     MyApp,
     HomePage,
-    DictionaryPage
+    DictionaryPage,
+    DefinitionPage,
+    LoginPage
   ],
   providers: [
     HTTP,

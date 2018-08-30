@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, AlertController, Content } from 'ionic-angular';
+import { NavController, AlertController, Content, ToastController } from 'ionic-angular';
 import { HTTP } from "@ionic-native/http";
 
 import { BotProvider } from "../../providers/bot/bot";
@@ -16,27 +16,59 @@ export class HomePage {
   @ViewChild(Content) content: Content;
 
   public todos = [];
+  public messageSend = "";
 
+  // import libraries
   constructor(
     private botProvider: BotProvider, 
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
-    public http: HTTP
+    public http: HTTP,
+    public toastCtrl: ToastController
   ) {
+    // trigger onload functions
     this.todos = this.botProvider.getMessages();
-
-    this.botProvider.sendMessages('<u ion-text color="primary">asdasdasd</u> asdasdsa', 'bot');
+    
+    this.botProvider.sendMessages('<u ion-text color="primary">asdasdasd</u> asdasdsa', 'bot');  
   }
 
+  // send message to network to get automated response
+  // message  str
   sendMessage(message) {
-    this.botProvider.sendMessages(message, 'user');
-    this.content.scrollToBottom();
+    // check input if message has a value
+    if(message) {
+      // empty inputbox
+      this.messageSend = "";
+      // display user message
+      this.botProvider.sendMessages(message, 'user');
+      // scroll down content
+      this.content.scrollToBottom();
+    } else {
+      // call toast
+      this.error("message is required");
+    }
   }
 
+  // call toast
+  // message str
+  error(message) {
+    const toast = this.toastCtrl.create({
+      message: message,
+      duration: 1000,
+    });
+    toast.present();
+  }
+
+  // display definition of Australian Slang
+  // word str
+  // meaning str
   definition(word, meaning) {
+    // title of alert
     let title = word;
+    // body of alert
     let definition = meaning;
 
+    // create alert
     let definitionAlert = this.alertCtrl.create({
       title: title,
       message: definition,
@@ -51,9 +83,11 @@ export class HomePage {
       ]
     });
 
+    // trigger alert
     definitionAlert.present();
   }
 
+  // change page to dictionary page
   gotoDictionary() {
     this.navCtrl.push(DictionaryPage);
   }

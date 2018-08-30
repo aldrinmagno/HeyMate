@@ -17,7 +17,7 @@
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let item of items">
-      {{ item }}
+      <h2 ion-text color="primary" (click)="gotoDefinition( item.title )" >{{ item.title }}</h2>
     </ion-item>
   </ion-list>
 </ion-content>

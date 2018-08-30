@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { DefinitionPage } from "../definition/definition";
+
 /**
  * Generated class for the DictionaryPage page.
  *
@@ -15,6 +17,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DictionaryPage {
 
+  public items = []; 
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -22,8 +26,26 @@ export class DictionaryPage {
     console.log('ionViewDidLoad DictionaryPage');
   }
 
+  // get the searched items
   getItems() {
+    this.items = [];
 
+    this.items.push({
+      title: "G'Day mate!",
+      description: "Good morning",
+      sentence: "G'Day mate! How are you doing?"
+    });
+
+    this.items.push({
+      title: "Straya",
+      description: "Australia",
+      sentence: "Welcome to Straya."
+    });
+  }
+
+  // go to definition page
+  gotoDefinition() {
+    this.navCtrl.push(DefinitionPage);
   }
 
 }
