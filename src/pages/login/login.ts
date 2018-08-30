@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
 import { HomePage } from "../home/home";
 
@@ -17,16 +17,42 @@ import { HomePage } from "../home/home";
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public toastCtrl: ToastController
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  // login with facebook or manual login
-  gotoHome() {
+  // manual login
+  gotoHome(username, password) {
+    if(password == "" || username == "") {
+      this.error("username and password is required");
+    } else {
+
+      this.navCtrl.push(HomePage);
+    }
+    
+  }
+
+  // login via facebook
+  loginFb() {
     this.navCtrl.push(HomePage);
+  }
+
+  // call toast
+  // message str
+  error(message) {
+    const toast = this.toastCtrl.create({
+      message: message,
+      duration: 1000,
+      position: "middle"
+    });
+    toast.present();
   }
 
 }

@@ -5,6 +5,7 @@ import { HTTP } from "@ionic-native/http";
 import { BotProvider } from "../../providers/bot/bot";
 
 import { DictionaryPage } from "../dictionary/dictionary";
+import { DefinitionPage } from "../definition/definition";
 
 @Component({
   selector: 'page-home',
@@ -74,7 +75,10 @@ export class HomePage {
       message: definition,
       buttons: [
         {
-          text: "Read More"
+          text: "Read More",
+          handler: () => {
+            this.navCtrl.push(DefinitionPage);
+          }
         },
         { 
           text: "Got It!"

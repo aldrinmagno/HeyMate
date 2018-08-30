@@ -24,25 +24,25 @@
 
           <ion-item>
             <ion-label floating>Username</ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input #un type="text" [(ngModel)]="username"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label floating>Password</ion-label>
-            <ion-input type="password"></ion-input>
+            <ion-input #pw type="password" [(ngModel)]="password"></ion-input>
           </ion-item>
 
         </ion-list>
 
       </ion-col>
       <ion-col col-12>
-        <button ion-button full color="primary" (click)="gotoHome()">Login</button>
+        <button ion-button full color="primary" (click)="gotoHome(un.value, pw.value)">Login</button>
         <br><br><br>
         <hr>
         <br>
       </ion-col>
       <ion-col col-12>
-          <button ion-button outline full icon-end (click)="gotoHome()">
+          <button ion-button outline full icon-end (click)="loginFb()">
             Login with facebook 
             <ion-icon name="logo-facebook"></ion-icon>
           </button>
