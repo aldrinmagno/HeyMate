@@ -51,8 +51,10 @@ export class DictionaryPage {
   }
 
   // go to definition page
-  gotoDefinition() {
-    this.navCtrl.push(DefinitionPage);
+  gotoDefinition(defination) {
+    this.navCtrl.push(DefinitionPage, {
+      defination:defination
+    });
   }
 
 }

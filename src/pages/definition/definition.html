@@ -15,16 +15,16 @@
 
 <ion-content padding>
   <br>
-  <h1 ion-text color="primary">G'Day</h1>
+  <h1 ion-text color="primary">{{ definition.slang }}</h1>
   <br>
   <hr>
-  <h5 ion-text>NOUN</h5>
+  <h5 ion-text>Meaning</h5>
   <p>
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem iusto ea quis sequi soluta inventore ullam, alias error a deleniti voluptatum minima, quam est atque vero corporis debitis ut accusamus.
+    {{ definition.meaning }}
   </p>
   <hr>
-  <h5 ion-text>Phrases</h5>
+  <h5 ion-text>Sample Sentence</h5>
   <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, eaque et, quia qui eveniet cumque obcaecati odio officia at eligendi, blanditiis cupiditate eius suscipit laudantium odit esse iusto sequi quibusdam.
+    {{ definition.sentence }}
   </p>
 </ion-content>

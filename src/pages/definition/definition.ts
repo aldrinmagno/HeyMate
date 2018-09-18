@@ -14,8 +14,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'definition.html',
 })
 export class DefinitionPage {
+  public definition = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.definition = this.navParams.get("defination");
   }
 
   ionViewDidLoad() {

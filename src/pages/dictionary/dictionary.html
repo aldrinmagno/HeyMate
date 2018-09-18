@@ -17,7 +17,7 @@
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let item of items">
-      <h2 ion-text color="primary" (click)="gotoDefinition(item.slang, item.meaning, item.sentence)" >{{ item.slang }}</h2>
+      <h2 ion-text color="primary" (click)="gotoDefinition(item)" >{{ item.slang }}</h2>
     </ion-item>
   </ion-list>
 </ion-content>
