@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { DictionaryProvider } from "../../providers/dictionary/dictionary";
+
 import { DefinitionPage } from "../definition/definition";
+
 
 /**
  * Generated class for the DictionaryPage page.
@@ -17,30 +20,34 @@ import { DefinitionPage } from "../definition/definition";
 })
 export class DictionaryPage {
 
-  public items = []; 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  searchQuery: string = '';
+  items = [];
+  content = []
+  
+  constructor(
+    private dictionaryProvider: DictionaryProvider, 
+    public navCtrl: NavController, 
+    public navParams: NavParams) 
+  {
+    this.getContent();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad DictionaryPage');
+  getContent() {
+    if(this.content.length === 0)
+    this.dictionaryProvider.dictionaryContent().subscribe(data => this.content = data.slangs);
   }
 
   // get the searched items
-  getItems() {
-    this.items = [];
+  getItems(ev: any) {
+    this.items = this.content;
+    
+    let search = ev.target.value;
 
-    this.items.push({
-      title: "G'Day mate!",
-      description: "Good morning",
-      sentence: "G'Day mate! How are you doing?"
-    });
-
-    this.items.push({
-      title: "Straya",
-      description: "Australia",
-      sentence: "Welcome to Straya."
-    });
+    if (search && search.trim() != '') {
+      this.items = this.items.filter((item) => {
+        return (item.slang.toLowerCase().indexOf(search.toLowerCase()) > -1);
+      })
+    }
   }
 
   // go to definition page
