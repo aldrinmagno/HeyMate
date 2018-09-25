@@ -43,7 +43,7 @@
       <ion-grid>
         <ion-row>
           <ion-col col-10>
-            <ion-input #message type="text" [(ngModel)]="messageSend" placeholder="Type your message here."></ion-input>
+            <ion-input #message type="text" [(ngModel)]="messageSend" placeholder="Type your message here." autocomplete="true" spellcheck="true"></ion-input>
           </ion-col>
           <ion-col col-2>
             <button ion-fab color="secondary" (click)="sendMessage(message.value)" >
