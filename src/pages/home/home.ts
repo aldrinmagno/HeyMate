@@ -127,6 +127,20 @@ export class HomePage {
     }
   }
 
+  nightMode() {
+    if(document.querySelector("ion-header").className == "night-mode") {
+      document.querySelector("ion-header").className = "";
+      document.querySelector("ion-content").className = "";
+      document.querySelector("ion-footer").className = "";
+
+    } else {
+      document.querySelector("ion-header").className = "night-mode";
+      document.querySelector("ion-content").className = "night-mode";
+      document.querySelector("ion-footer").className = "night-mode";
+
+    }
+  }
+
   // change page to dictionary page
   gotoDictionary() {
     this.navCtrl.push(DictionaryPage);

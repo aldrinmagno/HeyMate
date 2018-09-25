@@ -12,18 +12,18 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <div class="config">
       <ion-fab top right>
         <button ion-fab mini color="light"><ion-icon name="settings"></ion-icon></button>
         <ion-fab-list>
-          <button ion-fab><ion-icon name="add" (click)="largerFontSize()"></ion-icon></button>
+          <button ion-fab (click)="largerFontSize()"><ion-icon name="add"></ion-icon></button>
           <button ion-fab (click)="smallerFontSize()">---</button>
-          <button ion-fab><ion-icon name="moon"></ion-icon></button>
+          <button ion-fab (click)="nightMode()"><ion-icon name="moon"></ion-icon></button>
         </ion-fab-list>
       </ion-fab>
   </div>
-  <div *ngFor="let todo of todos" id="messages" padding>
+  <div *ngFor="let todo of todos" id="messages">
     <ion-card class="message-card" *ngIf="todo.type == 'user'" class="user">
       <ion-card-content>
         {{ todo.message }}
