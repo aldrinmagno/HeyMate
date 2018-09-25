@@ -619,6 +619,50 @@ var HomePage = /** @class */ (function () {
         // trigger alert
         definitionAlert.present();
     };
+    HomePage.prototype.largerFontSize = function () {
+        if (document.querySelector(".bot").className == "bot card card-md")
+            document.querySelector(".bot").className = "bot card card-md message-card-m";
+        else if (document.querySelector(".bot").className == "bot card card-md message-card-m")
+            document.querySelector(".bot").className = "bot card card-md message-card-l";
+        else if (document.querySelector(".bot").className == "bot card card-md message-card-l")
+            document.querySelector(".bot").className = "bot card card-md message-card-xl";
+        if (document.querySelector(".user")) {
+            if (document.querySelector(".user").className == "user card card-md")
+                document.querySelector(".user").className = "user card card-md message-card-m";
+            else if (document.querySelector(".user").className == "user card card-md message-card-m")
+                document.querySelector(".user").className = "user card card-md message-card-l";
+            else if (document.querySelector(".user").className == "user card card-md message-card-l")
+                document.querySelector(".user").className = "user card card-md message-card-xl";
+        }
+    };
+    HomePage.prototype.smallerFontSize = function () {
+        if (document.querySelector(".bot").className == "bot card card-md message-card-xl")
+            document.querySelector(".bot").className = "bot card card-md message-card-l";
+        else if (document.querySelector(".bot").className == "bot card card-md message-card-l")
+            document.querySelector(".bot").className = "bot card card-md message-card-m";
+        else if (document.querySelector(".bot").className == "bot card card-md message-card-m")
+            document.querySelector(".bot").className = "bot card card-md";
+        if (document.querySelector(".user")) {
+            if (document.querySelector(".user").className == "user card card-md message-card-xl")
+                document.querySelector(".user").className = "user card card-md message-card-l";
+            else if (document.querySelector(".user").className == "user card card-md message-card-l")
+                document.querySelector(".user").className = "user card card-md message-card-m";
+            else if (document.querySelector(".user").className == "user card card-md message-card-m")
+                document.querySelector(".user").className = "user card card-md";
+        }
+    };
+    HomePage.prototype.nightMode = function () {
+        if (document.querySelector("ion-header").className == "night-mode") {
+            document.querySelector("ion-header").className = "";
+            document.querySelector("ion-content").className = "";
+            document.querySelector("ion-footer").className = "";
+        }
+        else {
+            document.querySelector("ion-header").className = "night-mode";
+            document.querySelector("ion-content").className = "night-mode";
+            document.querySelector("ion-footer").className = "night-mode";
+        }
+    };
     // change page to dictionary page
     HomePage.prototype.gotoDictionary = function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__dictionary_dictionary__["a" /* DictionaryPage */]);
@@ -629,7 +673,7 @@ var HomePage = /** @class */ (function () {
     ], HomePage.prototype, "content", void 0);
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\aldri\Desktop\ionic\heymateprod\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Hey Mate!\n\n    </ion-title>\n\n\n\n    <ion-buttons end>\n\n      <button ion-button icon-only (click)="gotoDictionary()">\n\n        <ion-icon name="search" ></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <div *ngFor="let todo of todos" id="messages">\n\n    <ion-card *ngIf="todo.type == \'user\'" class="user">\n\n      <ion-card-content>\n\n        {{ todo.message }}\n\n      </ion-card-content>\n\n    </ion-card>\n\n    <ion-card *ngIf="todo.type == \'bot\'" class="bot">\n\n      <ion-card-content>\n\n        <u (click)="definition(\'G day\', \'Good day\')" ion-text color="primary">G\'day <span class="help">?</span></u> \n\n        mate! Are you ready to practice with an \n\n        <u (click)="definition(\'aussie\', \'Australian\')" ion-text color="primary">aussie <span class="help">?</span></u>\n\n        \n\n      </ion-card-content>\n\n    </ion-card>\n\n  </div>\n\n  <ion-footer bottom>\n\n    <ion-toolbar>\n\n      <ion-grid>\n\n        <ion-row>\n\n          <ion-col col-10>\n\n            <ion-input #message type="text" [(ngModel)]="messageSend" placeholder="Type your message here."></ion-input>\n\n          </ion-col>\n\n          <ion-col col-2>\n\n            <button ion-fab color="secondary" (click)="sendMessage(message.value)" >\n\n              <ion-icon name="send"></ion-icon>\n\n            </button>\n\n          </ion-col>\n\n        </ion-row>\n\n      </ion-grid>\n\n    </ion-toolbar>\n\n  </ion-footer>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\aldri\Desktop\ionic\heymateprod\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\aldri\Desktop\ionic\heymateprod\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>\n\n      Hey Mate!\n\n    </ion-title>\n\n\n\n    <ion-buttons end>\n\n      <button ion-button icon-only (click)="gotoDictionary()">\n\n        <ion-icon name="search" ></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <div class="config">\n\n      <ion-fab top right>\n\n        <button ion-fab mini color="light"><ion-icon name="settings"></ion-icon></button>\n\n        <ion-fab-list>\n\n          <button ion-fab (click)="largerFontSize()"><ion-icon name="add"></ion-icon></button>\n\n          <button ion-fab (click)="smallerFontSize()">---</button>\n\n          <button ion-fab (click)="nightMode()"><ion-icon name="moon"></ion-icon></button>\n\n        </ion-fab-list>\n\n      </ion-fab>\n\n  </div>\n\n  <div *ngFor="let todo of todos" id="messages">\n\n    <ion-card class="message-card" *ngIf="todo.type == \'user\'" class="user">\n\n      <ion-card-content>\n\n        {{ todo.message }}\n\n      </ion-card-content>\n\n    </ion-card>\n\n    <ion-card class="message-card" *ngIf="todo.type == \'bot\'" class="bot">\n\n      <ion-card-content>\n\n        <u (click)="definition(\'G day\', \'Good day\')" ion-text color="primary">G\'day <span class="help">?</span></u> \n\n        mate! Are you ready to practice with an \n\n        <u (click)="definition(\'aussie\', \'Australian\')" ion-text color="primary">aussie <span class="help">?</span></u>\n\n        \n\n      </ion-card-content>\n\n    </ion-card>\n\n  </div>\n\n  <ion-footer bottom>\n\n    <ion-toolbar>\n\n      <ion-grid>\n\n        <ion-row>\n\n          <ion-col col-10>\n\n            <ion-input #message type="text" [(ngModel)]="messageSend" placeholder="Type your message here."></ion-input>\n\n          </ion-col>\n\n          <ion-col col-2>\n\n            <button ion-fab color="secondary" (click)="sendMessage(message.value)" >\n\n              <ion-icon name="send"></ion-icon>\n\n            </button>\n\n          </ion-col>\n\n        </ion-row>\n\n      </ion-grid>\n\n    </ion-toolbar>\n\n  </ion-footer>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\aldri\Desktop\ionic\heymateprod\src\pages\home\home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_bot_bot__["a" /* BotProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],

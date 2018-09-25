@@ -25682,12 +25682,55 @@ ion-input {
   border-bottom: solid 1px #32db64;
 }
 
+.night-mode {
+  background-color: #242a31;
+  color: #fff;
+}
+
+.night-mode ion-navbar div {
+  background-color: #151a21;
+  color: #fff;
+}
+
+.night-mode ion-card.bot {
+  background-color: #292929;
+}
+
+.night-mode ion-card.user {
+  background-color: #404040;
+}
+
+.night-mode ion-toolbar div {
+  background-color: #151a21;
+  color: #fff;
+}
+
 ion-footer {
   position: fixed;
 }
 
 ion-content {
   height: 87.5%;
+}
+
+.message-card {
+  font-size: 1rem;
+}
+
+.message-card-s ion-card-content {
+  font-size: 1rem !important;
+}
+
+.message-card-m ion-card-content {
+  font-size: 2rem !important;
+}
+
+.message-card-l ion-card-content {
+  font-size: 3rem !important;
+}
+
+.message-card-xl ion-card-content {
+  font-size: 4rem !important;
 }
 
 u {
@@ -25712,4 +25755,9 @@ u {
   padding: .1rem .6rem;
   font-size: 1.3rem;
   font-weight: bolder;
+}
+
+.config {
+  color: #fff;
+  margin-bottom: 4rem;
 }
