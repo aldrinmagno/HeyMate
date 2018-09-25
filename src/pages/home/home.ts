@@ -91,6 +91,42 @@ export class HomePage {
     definitionAlert.present();
   }
 
+  largerFontSize() {
+    if(document.querySelector(".bot").className == "bot card card-md")
+    document.querySelector(".bot").className = "bot card card-md message-card-m";
+    else if(document.querySelector(".bot").className == "bot card card-md message-card-m")
+    document.querySelector(".bot").className = "bot card card-md message-card-l";
+    else if(document.querySelector(".bot").className == "bot card card-md message-card-l")
+    document.querySelector(".bot").className = "bot card card-md message-card-xl";
+
+    if(document.querySelector(".user")) {
+      if(document.querySelector(".user").className == "user card card-md")
+      document.querySelector(".user").className = "user card card-md message-card-m";
+      else if(document.querySelector(".user").className == "user card card-md message-card-m")
+      document.querySelector(".user").className = "user card card-md message-card-l";
+      else if(document.querySelector(".user").className == "user card card-md message-card-l")
+      document.querySelector(".user").className = "user card card-md message-card-xl";
+    }
+  }
+
+  smallerFontSize() {
+    if(document.querySelector(".bot").className == "bot card card-md message-card-xl")
+    document.querySelector(".bot").className = "bot card card-md message-card-l";
+    else if(document.querySelector(".bot").className == "bot card card-md message-card-l")
+    document.querySelector(".bot").className = "bot card card-md message-card-m";
+    else if(document.querySelector(".bot").className == "bot card card-md message-card-m")
+    document.querySelector(".bot").className = "bot card card-md";
+
+    if(document.querySelector(".user")) {
+      if(document.querySelector(".user").className == "user card card-md message-card-xl")
+      document.querySelector(".user").className = "user card card-md message-card-l";
+      else if(document.querySelector(".user").className == "user card card-md message-card-l")
+      document.querySelector(".user").className = "user card card-md message-card-m";
+      else if(document.querySelector(".user").className == "user card card-md message-card-m")
+      document.querySelector(".user").className = "user card card-md";
+    }
+  }
+
   // change page to dictionary page
   gotoDictionary() {
     this.navCtrl.push(DictionaryPage);

@@ -12,14 +12,24 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <div *ngFor="let todo of todos" id="messages">
-    <ion-card *ngIf="todo.type == 'user'" class="user">
+<ion-content >
+  <div class="config">
+      <ion-fab top right>
+        <button ion-fab mini color="light"><ion-icon name="settings"></ion-icon></button>
+        <ion-fab-list>
+          <button ion-fab><ion-icon name="add" (click)="largerFontSize()"></ion-icon></button>
+          <button ion-fab (click)="smallerFontSize()">---</button>
+          <button ion-fab><ion-icon name="moon"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+  </div>
+  <div *ngFor="let todo of todos" id="messages" padding>
+    <ion-card class="message-card" *ngIf="todo.type == 'user'" class="user">
       <ion-card-content>
         {{ todo.message }}
       </ion-card-content>
     </ion-card>
-    <ion-card *ngIf="todo.type == 'bot'" class="bot">
+    <ion-card class="message-card" *ngIf="todo.type == 'bot'" class="bot">
       <ion-card-content>
         <u (click)="definition('G day', 'Good day')" ion-text color="primary">G'day <span class="help">?</span></u> 
         mate! Are you ready to practice with an 
