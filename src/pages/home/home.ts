@@ -2,7 +2,6 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, AlertController, Content, ToastController } from 'ionic-angular';
 import { HTTP } from "@ionic-native/http";
 import { DomSanitizer } from '@angular/platform-browser';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 import { BotProvider } from "../../providers/bot/bot";
 import { DictionaryProvider } from "../../providers/dictionary/dictionary";
@@ -36,8 +35,8 @@ export class HomePage {
     public toastCtrl: ToastController,
     public sanitized: DomSanitizer,
     public eleRef: ElementRef,
-    public sqlite: SQLite
   ) {
+    this.botProvider.createDb();
     // trigger onload functions
     this.todos = this.botProvider.getMessages();
     // get all slangs
@@ -52,19 +51,6 @@ export class HomePage {
     if(this.slangs.length === 0)
     this.dictionaryProvider.dictionaryContent().subscribe(data => this.slangs = data.slangs);
   }
-  
-  // check if user used an australian slang 
-  checkForSlangs(message) {
-    //convert message to lower case
-    let msg = message.toLowerCase();
-   
-    this.slangs.forEach(function(slang) {
-      // check if slang is used
-      if(msg.indexOf(slang.slang.toLowerCase()) != -1) {
-        this.showAlert("You used: " + slang.slang, "Meaning: " + slang.meaning);
-      }
-    }.bind(this));
-  }
 
   // send message to network to get automated response
   // message  str
@@ -76,7 +62,7 @@ export class HomePage {
       // display user message
       this.botProvider.sendMessages(message, 'user');
       // check if user is using slangs
-      this.checkForSlangs(message);
+      this.botProvider.checkForSlangs(message, this.slangs);
       // scroll down content
       this.content.scrollToBottom();
     } else {
@@ -95,18 +81,6 @@ export class HomePage {
     });
     // execute toast
     toast.present();
-  }
-
-  // show regular alert
-  showAlert(title, subtitle) {
-    // create alert
-    const alert = this.alertCtrl.create({
-      title: title,
-      subTitle: subtitle,
-      buttons: ['OK']
-    });
-    // execute alert
-    alert.present();
   }
 
   // display definition of Australian Slang

@@ -57,7 +57,7 @@ import { DictionaryProvider } from '../providers/dictionary/dictionary';
     BotProvider,
     DictionaryProvider,
     NativeStorage,
-    SQLite
+    SQLite,
   ]
 })
 export class AppModule {}
