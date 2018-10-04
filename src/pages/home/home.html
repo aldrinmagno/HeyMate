@@ -29,12 +29,11 @@
         {{ todo.message }}
       </ion-card-content>
     </ion-card>
-    <ion-card class="message-card" *ngIf="todo.type == 'bot'" class="bot">
+    <ion-card class="message-card" *ngIf="todo.type == 'bot'" class="bot" >
       <ion-card-content>
-        <u (click)="definition('G day', 'Good day')" ion-text color="primary">G'day <span class="help">?</span></u> 
-        mate! Are you ready to practice with an 
-        <u (click)="definition('aussie', 'Australian')" ion-text color="primary">aussie <span class="help">?</span></u>
-        
+        <div [innerHTML]="todo.message">
+        {{ todo.message }}
+        </div>
       </ion-card-content>
     </ion-card>
   </div>

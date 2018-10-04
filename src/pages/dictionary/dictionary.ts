@@ -22,7 +22,7 @@ export class DictionaryPage {
 
   searchQuery: string = '';
   items = [];
-  content = []
+  content = [];
   
   constructor(
     private dictionaryProvider: DictionaryProvider, 

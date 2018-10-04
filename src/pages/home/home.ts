@@ -1,8 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, AlertController, Content, ToastController } from 'ionic-angular';
 import { HTTP } from "@ionic-native/http";
+import { DomSanitizer } from '@angular/platform-browser';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 import { BotProvider } from "../../providers/bot/bot";
+import { DictionaryProvider } from "../../providers/dictionary/dictionary";
 
 import { DictionaryPage } from "../dictionary/dictionary";
 import { DefinitionPage } from "../definition/definition";
@@ -17,20 +20,50 @@ export class HomePage {
   @ViewChild(Content) content: Content;
 
   public todos = [];
+
+  public key:string = "items";
+  
   public messageSend = "";
+  public slangs = [];
 
   // import libraries
   constructor(
     private botProvider: BotProvider, 
+    private dictionaryProvider: DictionaryProvider, 
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public http: HTTP,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public sanitized: DomSanitizer,
+    public eleRef: ElementRef,
+    public sqlite: SQLite
   ) {
     // trigger onload functions
     this.todos = this.botProvider.getMessages();
+    // get all slangs
+    this.getContent();
     
-    this.botProvider.sendMessages('<u ion-text color="primary">asdasdasd</u> asdasdsa', 'bot');  
+    this.botProvider.sendMessages(this.sanitized.bypassSecurityTrustHtml(`<u class="slang" (click)="definition('G day', 'Good day')" ion-text color="primary">Gday <span class="help">?</span></u> mate! Are you ready to practice with an <u data-word="Aussie" data-meaning="Australian" ion-text color="primary">aussie <span class="help">?</span></u>`), 'bot');  
+  }
+
+  // fetch all slangs
+  getContent() {
+    // check if slangs are already fetch
+    if(this.slangs.length === 0)
+    this.dictionaryProvider.dictionaryContent().subscribe(data => this.slangs = data.slangs);
+  }
+  
+  // check if user used an australian slang 
+  checkForSlangs(message) {
+    //convert message to lower case
+    let msg = message.toLowerCase();
+   
+    this.slangs.forEach(function(slang) {
+      // check if slang is used
+      if(msg.indexOf(slang.slang.toLowerCase()) != -1) {
+        this.showAlert("You used: " + slang.slang, "Meaning: " + slang.meaning);
+      }
+    }.bind(this));
   }
 
   // send message to network to get automated response
@@ -42,6 +75,8 @@ export class HomePage {
       this.messageSend = "";
       // display user message
       this.botProvider.sendMessages(message, 'user');
+      // check if user is using slangs
+      this.checkForSlangs(message);
       // scroll down content
       this.content.scrollToBottom();
     } else {
@@ -53,11 +88,25 @@ export class HomePage {
   // call toast
   // message str
   error(message) {
+    // create toast
     const toast = this.toastCtrl.create({
       message: message,
       duration: 1000,
     });
+    // execute toast
     toast.present();
+  }
+
+  // show regular alert
+  showAlert(title, subtitle) {
+    // create alert
+    const alert = this.alertCtrl.create({
+      title: title,
+      subTitle: subtitle,
+      buttons: ['OK']
+    });
+    // execute alert
+    alert.present();
   }
 
   // display definition of Australian Slang
@@ -68,7 +117,6 @@ export class HomePage {
     let title = word;
     // body of alert
     let definition = meaning;
-
     // create alert
     let definitionAlert = this.alertCtrl.create({
       title: title,

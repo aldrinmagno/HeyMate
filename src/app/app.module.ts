@@ -9,6 +9,8 @@ import { File } from '@ionic-native/file';
 import { FileOpener } from '@ionic-native/file-opener';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from "@angular/http"
+import { NativeStorage } from '@ionic-native/native-storage';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 import { MyApp } from './app.component';
 
@@ -53,7 +55,9 @@ import { DictionaryProvider } from '../providers/dictionary/dictionary';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BotProvider,
-    DictionaryProvider
+    DictionaryProvider,
+    NativeStorage,
+    SQLite
   ]
 })
 export class AppModule {}
