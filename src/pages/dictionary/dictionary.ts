@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 import { DictionaryProvider } from "../../providers/dictionary/dictionary";
 
@@ -27,9 +28,28 @@ export class DictionaryPage {
   constructor(
     private dictionaryProvider: DictionaryProvider, 
     public navCtrl: NavController, 
+    private nativeStorage: NativeStorage,
     public navParams: NavParams) 
   {
     this.getContent();
+
+    this.nativeStorage.getItem('nightmode')
+    .then(
+      data => this.nightModeAll(data.on),
+      error => console.error(error)
+    );
+  }
+
+  nightModeAll(on) {
+    
+    if(on === 1) {
+      let daymode = document.querySelector("ion-app").className.replace("night-mode", ""); 
+      document.querySelector("ion-app").className = daymode + " night-mode";
+ 
+    } else {
+      let daymode = document.querySelector("ion-app").className.replace("night-mode", ""); 
+      document.querySelector("ion-app").className = daymode;
+    } 
   }
 
   getContent() {

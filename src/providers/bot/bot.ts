@@ -37,8 +37,8 @@ export class BotProvider {
       }).then((db: SQLiteObject) => {
         this.database = db;
  
-        // create database
-        this.database.executeSql("CREATE TABLE tblSlangs(slang VARCHAR(255), meaning VARCHAR(255), sentence VARCHAR(255), usages INT(11))")
+        // create table
+        this.database.executeSql("CREATE TABLE IF NOT EXISTS tblSlangs(slang VARCHAR(255), meaning VARCHAR(255), sentence VARCHAR(255), usages INT(11))")
         .then(() => console.log('Executed SQL'))
         .catch(e => console.log(e));         
       });
@@ -75,23 +75,41 @@ export class BotProvider {
 
   numberofUsage(slangs) {
     let search = [slangs.slang];
-    let insert = [slangs.slang, slangs.meaning, slangs.sentence];
+    let insert = [slangs.slang, slangs.meaning, slangs.sentence, 1];
    
     return this.database.executeSql("SELECT * FROM tblSlangs WHERE slang = ?", search).then(data => {
       let update = [2];
-      console.log(data);
       if(data.rows.length <= 0) {
-        this.database.executeSql("INSERT INTO tblSlangs(slang, meaning, sentence) VALUES(?, ?, ?)", insert).then(res => {
+        this.database.executeSql("INSERT INTO tblSlangs(slang, meaning, sentence, usages) VALUES(?, ?, ?, ?)", insert).then(res => {
           this.showAlert("You have use " + insert[0] + " for the first time!", insert[0] + " means " + insert[1]);
         });
       } else {
         this.database.executeSql("UPDATE tblSlangs SET usages = ?", update).then(res => {
-          this.showAlert("You used " + insert[0] + " " + update + " already!", insert[0] + " means " + insert[1]);
+          this.showAlert("You used " + insert[0] + " times " + update + " already! Keep it up.", insert[0] + " means " + insert[1]);
         });
       }
     })
     .then(() => console.log('Executed SQL'))
     .catch(e => console.log(e)); 
+  }
+
+  getUsedSlangs() {
+    
+    return new Promise((resolve, reject) => {
+      this.database.executeSql('SELECT * from tblSlangs', []).then((data) => {
+        let activityValues = [];
+        if (data.rows.length > 0) {
+          for(let i=0; i <data.rows.length; i++) {
+            activityValues.push(data.rows.item(i));
+          }
+        }
+       
+        resolve(activityValues);
+       
+      }, (error) => {
+        reject(error);
+      })
+    });
   }
 
   // 

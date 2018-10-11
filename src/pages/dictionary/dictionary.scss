@@ -1,3 +1,39 @@
 page-dictionary {
 
 }
+.night-mode {
+    ion-content {
+        background-color:#242a31;
+        color:#fff;
+    }
+    ion-navbar {
+        div {
+            background-color:#151a21;
+            color:#fff;
+        }
+    }
+
+    ion-card.bot {
+        background-color:#292929;
+    }
+
+    ion-card.user {
+        background-color:#404040;
+    }
+
+    ion-toolbar {
+        div {
+            background-color:#151a21;
+            color:#fff;
+        }
+    }
+    ion-list {
+        ion-item {
+            background-color: #151a21;
+
+            h2 {
+                color: #fff;
+            }
+        }
+    }
+}

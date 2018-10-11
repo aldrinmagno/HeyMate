@@ -18,6 +18,7 @@ import { HomePage } from '../pages/home/home';
 import { DictionaryPage } from "../pages/dictionary/dictionary";
 import { DefinitionPage } from "../pages/definition/definition";
 import { LoginPage } from "../pages/login/login";
+import { TrophyPage } from "../pages/trophy/trophy";
 
 import { BotProvider } from '../providers/bot/bot';
 import { DictionaryProvider } from '../providers/dictionary/dictionary';
@@ -30,7 +31,8 @@ import { DictionaryProvider } from '../providers/dictionary/dictionary';
     HomePage,
     DictionaryPage,
     DefinitionPage,
-    LoginPage
+    LoginPage,
+    TrophyPage
   ],
   imports: [
     HttpClientModule,
@@ -45,7 +47,8 @@ import { DictionaryProvider } from '../providers/dictionary/dictionary';
     HomePage,
     DictionaryPage,
     DefinitionPage,
-    LoginPage
+    LoginPage,
+    TrophyPage
   ],
   providers: [
     HTTP,

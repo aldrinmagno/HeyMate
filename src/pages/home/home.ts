@@ -2,12 +2,14 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, AlertController, Content, ToastController } from 'ionic-angular';
 import { HTTP } from "@ionic-native/http";
 import { DomSanitizer } from '@angular/platform-browser';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 import { BotProvider } from "../../providers/bot/bot";
 import { DictionaryProvider } from "../../providers/dictionary/dictionary";
 
 import { DictionaryPage } from "../dictionary/dictionary";
 import { DefinitionPage } from "../definition/definition";
+import { TrophyPage } from "../trophy/trophy";
 
 @Component({
   selector: 'page-home',
@@ -32,17 +34,34 @@ export class HomePage {
     public navCtrl: NavController, 
     public alertCtrl: AlertController, 
     public http: HTTP,
+    private nativeStorage: NativeStorage,
     public toastCtrl: ToastController,
     public sanitized: DomSanitizer,
     public eleRef: ElementRef,
   ) {
-    this.botProvider.createDb();
+    //this.botProvider.createDb();
     // trigger onload functions
     this.todos = this.botProvider.getMessages();
     // get all slangs
     this.getContent();
+
+    let initMsg = [
+      this.sanitized.bypassSecurityTrustHtml(`<u data-word="Aussie" data-meaning="Australian" class="slang" ion-text color="primary">Gday <span class="help">?</span></u> mate! Are you ready to practice with an <u data-word="Aussie" data-meaning="Australian" ion-text color="primary">aussie <span class="help">?</span></u>`),
+      'bot'
+    ];
     
-    this.botProvider.sendMessages(this.sanitized.bypassSecurityTrustHtml(`<u class="slang" (click)="definition('G day', 'Good day')" ion-text color="primary">Gday <span class="help">?</span></u> mate! Are you ready to practice with an <u data-word="Aussie" data-meaning="Australian" ion-text color="primary">aussie <span class="help">?</span></u>`), 'bot');  
+    this.botProvider.sendMessages(initMsg[0], initMsg[1]);  
+    
+    this.nativeStorage.setItem('nightmode', {on: 0})
+    .then(
+      () => console.log('Stored item!'),
+      error => console.error('Error storing item', error)
+    );
+
+  }
+
+  clickSlang() {
+    console.log("hi");
   }
 
   // fetch all slangs
@@ -108,64 +127,126 @@ export class HomePage {
     
       ]
     });
-
     // trigger alert
     definitionAlert.present();
   }
 
   largerFontSize() {
-    if(document.querySelector(".bot").className == "bot card card-md")
-    document.querySelector(".bot").className = "bot card card-md message-card-m";
-    else if(document.querySelector(".bot").className == "bot card card-md message-card-m")
-    document.querySelector(".bot").className = "bot card card-md message-card-l";
-    else if(document.querySelector(".bot").className == "bot card card-md message-card-l")
-    document.querySelector(".bot").className = "bot card card-md message-card-xl";
-
-    if(document.querySelector(".user")) {
-      if(document.querySelector(".user").className == "user card card-md")
-      document.querySelector(".user").className = "user card card-md message-card-m";
-      else if(document.querySelector(".user").className == "user card card-md message-card-m")
-      document.querySelector(".user").className = "user card card-md message-card-l";
-      else if(document.querySelector(".user").className == "user card card-md message-card-l")
-      document.querySelector(".user").className = "user card card-md message-card-xl";
+    if(document.querySelector(".bot").className == "bot card card-md") {
+      const msgList = Array.from(document.querySelectorAll(".bot"));
+      msgList.forEach(function(e) {
+        e.className = "bot card card-md message-card-m";
+      });
+    } else if(document.querySelector(".bot").className == "bot card card-md message-card-m") {
+      const msgList = Array.from(document.querySelectorAll(".bot"));
+      msgList.forEach(function(e) {
+        e.className = "bot card card-md message-card-l";
+      });
+    } else if(document.querySelector(".bot").className == "bot card card-md message-card-l") {
+      const msgList = Array.from(document.querySelectorAll(".bot"));
+      msgList.forEach(function(e) {
+        e.className = "bot card card-md message-card-xl";
+      });  
     }
+ 
+    if(document.querySelector(".user")) {
+      if(document.querySelector(".user").className == "user card card-md") {
+        const msgList = Array.from(document.querySelectorAll(".user"));
+        msgList.forEach(function(e) {
+          e.className = "user card card-md message-card-m";
+        });
+      } else if(document.querySelector(".user").className == "user card card-md message-card-m") {
+        const msgList = Array.from(document.querySelectorAll(".user"));
+        msgList.forEach(function(e) {
+          e.className = "user card card-md message-card-l";
+        });
+      } else if(document.querySelector(".user").className == "user card card-md message-card-l") {
+        const msgList = Array.from(document.querySelectorAll(".user"));
+        msgList.forEach(function(e) {
+          e.className = "user card card-md message-card-xl";
+        }); 
+      }
+    } 
   }
 
   smallerFontSize() {
-    if(document.querySelector(".bot").className == "bot card card-md message-card-xl")
-    document.querySelector(".bot").className = "bot card card-md message-card-l";
-    else if(document.querySelector(".bot").className == "bot card card-md message-card-l")
-    document.querySelector(".bot").className = "bot card card-md message-card-m";
-    else if(document.querySelector(".bot").className == "bot card card-md message-card-m")
-    document.querySelector(".bot").className = "bot card card-md";
+    if(document.querySelector(".bot").className == "bot card card-md message-card-xl") {
+      const msgList = Array.from(document.querySelectorAll(".bot"));
+      msgList.forEach(function(e) {
+        e.className = "bot card card-md message-card-l";
+      });
+    } else if(document.querySelector(".bot").className == "bot card card-md message-card-l") {
+      const msgList = Array.from(document.querySelectorAll(".bot"));
+      msgList.forEach(function(e) {
+        e.className = "bot card card-md message-card-m";
+      });
+    } else if(document.querySelector(".bot").className == "bot card card-md message-card-m") {
+      const msgList = Array.from(document.querySelectorAll(".bot"));
+      msgList.forEach(function(e) {
+        e.className = "bot card card-md";
+      });
+    }
 
     if(document.querySelector(".user")) {
-      if(document.querySelector(".user").className == "user card card-md message-card-xl")
-      document.querySelector(".user").className = "user card card-md message-card-l";
-      else if(document.querySelector(".user").className == "user card card-md message-card-l")
-      document.querySelector(".user").className = "user card card-md message-card-m";
-      else if(document.querySelector(".user").className == "user card card-md message-card-m")
-      document.querySelector(".user").className = "user card card-md";
+      if(document.querySelector(".user").className == "user card card-md message-card-xl") {
+        const msgList = Array.from(document.querySelectorAll(".user"));
+        msgList.forEach(function(e) {
+          e.className = "user card card-md message-card-l";
+        });
+      } else if(document.querySelector(".user").className == "user card card-md message-card-l") {
+        const msgList = Array.from(document.querySelectorAll(".user"));
+        msgList.forEach(function(e) {
+          e.className = "user card card-md message-card-m";
+        });
+      } else if(document.querySelector(".user").className == "user card card-md message-card-m") {
+        const msgList = Array.from(document.querySelectorAll(".user"));
+        msgList.forEach(function(e) {
+          e.className = "user card card-md";
+        });
+      }
     }
   }
 
   nightMode() {
-    if(document.querySelector("ion-header").className == "night-mode") {
-      document.querySelector("ion-header").className = "";
-      document.querySelector("ion-content").className = "";
-      document.querySelector("ion-footer").className = "";
-
+    if(document.querySelector("ion-app").classList.contains("night-mode")) {
+      this.nativeStorage.setItem('nightmode', {on: 0})
+      .then(
+        () => console.log('Stored item!'),
+        error => console.error('Error storing item', error)
+      );
+   
+      this.nightModeAll(0);
     } else {
-      document.querySelector("ion-header").className = "night-mode";
-      document.querySelector("ion-content").className = "night-mode";
-      document.querySelector("ion-footer").className = "night-mode";
-
+      this.nativeStorage.setItem('nightmode', {on: 1})
+      .then(
+        () => console.log('Stored item!'),
+        error => console.error('Error storing item', error)
+      );
+   
+      this.nightModeAll(1);
     }
+  }
+
+  nightModeAll(on) {
+    
+    if(on === 1) {
+      let daymode = document.querySelector("ion-app").className.replace("night-mode", ""); 
+      document.querySelector("ion-app").className = daymode + " night-mode";
+ 
+    } else {
+      let daymode = document.querySelector("ion-app").className.replace("night-mode", ""); 
+      document.querySelector("ion-app").className = daymode;
+    } 
   }
 
   // change page to dictionary page
   gotoDictionary() {
     this.navCtrl.push(DictionaryPage);
+  }
+
+  // change page to dictionary page
+  gotoTrophy() {
+    this.navCtrl.push(TrophyPage);
   }
 
 }

@@ -20,11 +20,11 @@
           <button ion-fab (click)="largerFontSize()"><ion-icon name="add"></ion-icon></button>
           <button ion-fab (click)="smallerFontSize()">---</button>
           <button ion-fab (click)="nightMode()"><ion-icon name="moon"></ion-icon></button>
-          <button ion-fab (click)="nightMode()"><ion-icon name="trophy"></ion-icon></button>
+          <button ion-fab (click)="gotoTrophy()"><ion-icon name="trophy"></ion-icon></button>
         </ion-fab-list>
       </ion-fab>
   </div>
-  <div *ngFor="let todo of todos" id="messages">
+  <div *ngFor="let todo of todos" class="messages">
     <ion-card class="message-card" *ngIf="todo.type == 'user'" class="user">
       <ion-card-content>
         {{ todo.message }}
@@ -38,7 +38,7 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <ion-footer bottom>
+  <ion-footer>
     <ion-toolbar>
       <ion-grid>
         <ion-row>

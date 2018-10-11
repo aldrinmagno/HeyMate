@@ -1,14 +1,13 @@
-page-home {
-
-}
 
 ion-input {
     border-bottom: solid 1px map-get($colors, secondary);
 }
 
 .night-mode {
-    background-color:#242a31;
-    color:#fff;
+    ion-content {
+        background-color:#242a31;
+        color:#fff;
+    }
     ion-navbar {
         div {
             background-color:#151a21;
@@ -30,15 +29,29 @@ ion-input {
             color:#fff;
         }
     }
+
+    ion-list {
+        ion-item {
+            background-color: #151a21;
+
+            h2 {
+                color: #fff;
+            }
+        }
+    }
 }
 
 ion-footer {
-    position: fixed;
+   position: absolute;
+   bottom: .5rem;
+   z-index: 9;
 }
 
 ion-content {
-    height: 87.5%;
+    height: 100%;
 }
+
+
 
 .message-card {
     font-size: 1rem;
