@@ -46,7 +46,7 @@ export class HomePage {
     this.getContent();
 
     let initMsg = [
-      this.sanitized.bypassSecurityTrustHtml(`<u data-word="Aussie" data-meaning="Australian" class="slang" ion-text color="primary">Gday <span class="help">?</span></u> mate! Are you ready to practice with an <u data-word="Aussie" data-meaning="Australian" ion-text color="primary">aussie <span class="help">?</span></u>`),
+      this.sanitized.bypassSecurityTrustHtml(`<u data-word="G-day" data-meaning="It's a way of saying hello. It means good day." data-sentence="the police man said G-day to the children as they rode by on there bikes." class="slang" ion-text color="primary">G-day <span class="help">?</span></u> mate! Are you ready to practice with an aussie`),
       'bot'
     ];
     
@@ -58,10 +58,10 @@ export class HomePage {
       error => console.error('Error storing item', error)
     );
 
-  }
-
-  clickSlang() {
-    console.log("hi");
+    document.addEventListener('click', (e: any) => {
+      if(e.target.tagName === "U")
+      this.definition(e.target.dataset.word, e.target.dataset.meaning, e.target.dataset.sentence);
+    });
   }
 
   // fetch all slangs
@@ -105,7 +105,7 @@ export class HomePage {
   // display definition of Australian Slang
   // word str
   // meaning str
-  definition(word, meaning) {
+  definition(word, meaning, sentence) {
     // title of alert
     let title = word;
     // body of alert
@@ -118,7 +118,9 @@ export class HomePage {
         {
           text: "Read More",
           handler: () => {
-            this.navCtrl.push(DefinitionPage);
+            this.navCtrl.push(DefinitionPage, {
+              defination:{id: 0, slang: word, meaning: meaning, sentence: sentence}
+            });
           }
         },
         { 
