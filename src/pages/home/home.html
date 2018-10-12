@@ -24,19 +24,21 @@
         </ion-fab-list>
       </ion-fab>
   </div>
-  <div *ngFor="let todo of todos" class="messages">
-    <ion-card class="message-card" *ngIf="todo.type == 'user'" class="user">
-      <ion-card-content>
-        {{ todo.message }}
-      </ion-card-content>
-    </ion-card>
-    <ion-card class="message-card" *ngIf="todo.type == 'bot'" class="bot" >
-      <ion-card-content>
-        <div [innerHTML]="todo.message">
-        {{ todo.message }}
-        </div>
-      </ion-card-content>
-    </ion-card>
+  <div id="contents">
+    <div *ngFor="let todo of todos" class="messages">
+      <ion-card class="message-card" *ngIf="todo.type == 'user'" class="user">
+        <ion-card-content>
+          {{ todo.message }}
+        </ion-card-content>
+      </ion-card>
+      <ion-card class="message-card" *ngIf="todo.type == 'bot'" class="bot" >
+        <ion-card-content>
+          <div [innerHTML]="todo.message">
+          {{ todo.message }}
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </div>
   <ion-footer>
     <ion-toolbar>

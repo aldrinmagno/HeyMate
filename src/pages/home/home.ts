@@ -39,7 +39,7 @@ export class HomePage {
     public sanitized: DomSanitizer,
     public eleRef: ElementRef,
   ) {
-    //this.botProvider.createDb();
+    this.botProvider.createDb();
     // trigger onload functions
     this.todos = this.botProvider.getMessages();
     // get all slangs
@@ -80,10 +80,24 @@ export class HomePage {
       this.messageSend = "";
       // display user message
       this.botProvider.sendMessages(message, 'user');
+      
+
+      let scrollDown = document.getElementById("contents");
+      scrollDown.scrollTop = scrollDown.scrollHeight;
+
+      setTimeout(function(){ 
+        let res = this.sanitized.bypassSecurityTrustHtml(this.botProvider.convo());
+        this.botProvider.sendMessages(res, "bot"); 
+        scrollDown.scrollTop = scrollDown.scrollHeight;
+      }.bind(this), 1000);
+
+      setTimeout(function(){ 
+        scrollDown.scrollTop = scrollDown.scrollHeight;
+      }.bind(this), 1010);
       // check if user is using slangs
       this.botProvider.checkForSlangs(message, this.slangs);
       // scroll down content
-      this.content.scrollToBottom();
+      
     } else {
       // call toast
       this.error("message is required");
