@@ -78,12 +78,14 @@ export class BotProvider {
     let insert = [slangs.slang, slangs.meaning, slangs.sentence, 1];
    
     return this.database.executeSql("SELECT * FROM tblSlangs WHERE slang = ?", search).then(data => {
-      let update = [2];
+     
       if(data.rows.length <= 0) {
         this.database.executeSql("INSERT INTO tblSlangs(slang, meaning, sentence, usages) VALUES(?, ?, ?, ?)", insert).then(res => {
           this.showAlert("You have use " + insert[0] + " for the first time!", insert[0] + " means " + insert[1]);
         });
       } else {
+        let update = [data.rows.item(0).usages + 1];
+     
         this.database.executeSql("UPDATE tblSlangs SET usages = ?", update).then(res => {
           this.showAlert("You used " + insert[0] + " times " + update + " already! Keep it up.", insert[0] + " means " + insert[1]);
         });
@@ -290,15 +292,15 @@ export class BotProvider {
       "Have your parents influenced what goals you have?",
       "What are some strange beliefs that some people have?",
       "Whats the most addictive mobile game you have played?",
-      "Why do you think sports are common across almost <u data-word='Ankle Biter' data-meaning='A young child' data-sentence='Heaps of ankle biters in that park' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
-      "Why do you think sports are common across almost <u data-word='Ankle Biter' data-meaning='A young child' data-sentence='Heaps of ankle biters in that park' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
-      "Why do you think sports are common across almost <u data-word='Ankle Biter' data-meaning='A young child' data-sentence='Heaps of ankle biters in that park' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
-      "Why do you think sports are common across almost <u data-word='Ankle Biter' data-meaning='A young child' data-sentence='Heaps of ankle biters in that park' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
-      "Why do you think sports are common across almost <u data-word='Ankle Biter' data-meaning='A young child' data-sentence='Heaps of ankle biters in that park' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
-      "Why do you think sports are common across almost <u data-word='Ankle Biter' data-meaning='A young child' data-sentence='Heaps of ankle biters in that park' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
-      "Why do you think sports are common across almost <u data-word='Ankle Biter' data-meaning='A young child' data-sentence='Heaps of ankle biters in that park' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
-      "Why do you think sports are common across almost <u data-word='Ankle Biter' data-meaning='A young child' data-sentence='Heaps of ankle biters in that park' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
-      "Why do you think sports are common across almost <u data-word='Ankle Biter' data-meaning='A young child' data-sentence='Heaps of ankle biters in that park' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
+      "Why do you think sports are common across almost <u data-word='Whole shabang' data-meaning='All of it' data-sentence='I wanted to buy just one, but he said I had to buy the whole shebang - can you lend me a lobster?' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
+      "Why do you think sports are common across almost <u data-word='Whole shabang' data-meaning='All of it' data-sentence='I wanted to buy just one, but he said I had to buy the whole shebang - can you lend me a lobster?' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
+      "Why do you think sports are common across almost <u data-word='Whole shabang' data-meaning='All of it' data-sentence='I wanted to buy just one, but he said I had to buy the whole shebang - can you lend me a lobster?' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
+      "Why do you think sports are common across almost <u data-word='Whole shabang' data-meaning='All of it' data-sentence='I wanted to buy just one, but he said I had to buy the whole shebang - can you lend me a lobster?' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
+      "Why do you think sports are common across almost <u data-word='Whole shabang' data-meaning='All of it' data-sentence='I wanted to buy just one, but he said I had to buy the whole shebang - can you lend me a lobster?' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
+      "Why do you think sports are common across almost <u data-word='Whole shabang' data-meaning='All of it' data-sentence='I wanted to buy just one, but he said I had to buy the whole shebang - can you lend me a lobster?' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
+      "Why do you think sports are common across almost <u data-word='Whole shabang' data-meaning='All of it' data-sentence='I wanted to buy just one, but he said I had to buy the whole shebang - can you lend me a lobster?' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
+      "Why do you think sports are common across almost <u data-word='Whole shabang' data-meaning='All of it' data-sentence='I wanted to buy just one, but he said I had to buy the whole shebang - can you lend me a lobster?' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
+      "Why do you think sports are common across almost <u data-word='Whole shabang' data-meaning='All of it' data-sentence='I wanted to buy just one, but he said I had to buy the whole shebang - can you lend me a lobster?' class='slang' ion-text color='primary'>Whole shabang <span class='help'>?</span></u> cultures present and past?",
       "An app mysteriously appears on your phone that does something amazing. What does it do?",
       "Now that indie publishing has become easier, have books gotten better or worse?",
       "If you could bring back one TV show that was cancelled, which one would you bring back?",
